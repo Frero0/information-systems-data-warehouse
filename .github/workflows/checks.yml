@@ -1,0 +1,50 @@
+name: Project checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: analytics
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: si_demo
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U analytics -d si_demo"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: analytics
+      PGPASSWORD: ci-only-password
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      - name: Test clustering and exports
+        run: python -m unittest discover -s tests -v
+      - name: Validate workflow and archive
+        run: python scripts/validate_project.py
+      - name: Verify SQL against isolated temporary tables
+        run: python scripts/check_sql.py --database si_demo
+      - name: Load and execute demonstration
+        run: |
+          psql -X --set=ON_ERROR_STOP=1 --single-transaction --dbname=si_demo --file=sql/demo_data.sql
+          python scripts/analyze.py --database si_demo

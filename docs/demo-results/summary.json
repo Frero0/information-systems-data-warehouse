@@ -1,0 +1,135 @@
+{
+  "k": 3,
+  "seed": 0,
+  "restarts": 10,
+  "max_iterations": 99,
+  "normalization": "min-max [0, 1]; constant features become zero",
+  "customer_count": 6,
+  "models": {
+    "purchase_behaviour": {
+      "features": [
+        "order_count",
+        "distinct_products",
+        "gross_spend"
+      ],
+      "feature_minima": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "feature_maxima": [
+        2.0,
+        3.0,
+        764.0
+      ],
+      "inertia": 0.44042415804803536,
+      "iterations_of_best_restart": 2,
+      "cluster_sizes": [
+        3,
+        1,
+        2
+      ],
+      "centroids_normalized": [
+        [
+          0.0,
+          0.16666666666666666,
+          0.16775884665792926
+        ],
+        [
+          1.0,
+          0.0,
+          0.653997378768021
+        ],
+        [
+          1.0,
+          0.75,
+          0.8401048492791612
+        ]
+      ],
+      "centroids_original_units": [
+        [
+          1.0,
+          1.3333333333333333,
+          129.00000000000003
+        ],
+        [
+          2.0,
+          1.0,
+          500.0
+        ],
+        [
+          2.0,
+          2.5,
+          642.0
+        ]
+      ]
+    },
+    "discount_behaviour": {
+      "features": [
+        "order_count",
+        "total_quantity",
+        "net_spend",
+        "mean_discount"
+      ],
+      "feature_minima": [
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "feature_maxima": [
+        2.0,
+        200.0,
+        752.0,
+        0.16666666666666666
+      ],
+      "inertia": 0.5485060006928306,
+      "iterations_of_best_restart": 2,
+      "cluster_sizes": [
+        3,
+        2,
+        1
+      ],
+      "centroids_normalized": [
+        [
+          0.0,
+          0.10217755443886097,
+          0.14380825565912117,
+          0.20000000000000004
+        ],
+        [
+          1.0,
+          0.2814070351758794,
+          0.81491344873502,
+          0.7625
+        ],
+        [
+          1.0,
+          1.0,
+          0.5579227696404794,
+          0.9
+        ]
+      ],
+      "centroids_original_units": [
+        [
+          1.0,
+          21.333333333333332,
+          109.0,
+          0.03333333333333334
+        ],
+        [
+          2.0,
+          57.0,
+          613.0,
+          0.12708333333333333
+        ],
+        [
+          2.0,
+          200.0,
+          420.0,
+          0.15
+        ]
+      ]
+    }
+  }
+}
